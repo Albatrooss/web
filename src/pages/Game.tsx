@@ -1,24 +1,15 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { Player } from '../../types';
 import Card from '../components/Card';
-import Chat from '../components/Chat';
 import Table from '../components/Table';
+import UserUI from '../components/UserUI';
 import { useGameContext, useSocketContext } from '../contexts';
 
 const Game: React.FC = () => {
-  const location = useLocation();
-  const isHost = location.state && (location.state as any).creator;
   const { gameId } = useParams<{ gameId: string }>();
-  const { username, players } = useGameContext();
-  const { socket, pingRoom, ready } = useSocketContext();
-
-  const handleReady = (id: string) => {
-    console.log(id, socket?.id);
-    if (id !== socket?.id) return;
-    ready();
-  };
+  const { username } = useGameContext();
+  const { socket, pingRoom } = useSocketContext();
 
   useEffect(() => {
     if (!username) pingRoom(gameId!);
@@ -26,12 +17,12 @@ const Game: React.FC = () => {
 
   return (
     <main>
-      <Chat gameId={gameId!} />
-      <TableWrapper>
+      {/* <Chat gameId={gameId!} /> */}
+      <Wrapper>
         <Table />
-      </TableWrapper>
+        <UserUI />
+      </Wrapper>
       {!username && <UsernameModal gameId={gameId!} />}
-      {/* isHost && <button>Start Game</button> */}
     </main>
   );
 };
@@ -115,10 +106,9 @@ const StyledInput = styled.input`
   }
 `;
 
-const TableWrapper = styled.div`
+const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
 `;

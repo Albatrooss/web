@@ -1,22 +1,20 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import CreateGameForm from '../components/CreateGameForm';
 import MainPageArt from '../components/MainPageArt';
-import { useGameContext, useSocketContext } from '../contexts';
+import { useGameContext } from '../contexts';
 
 const CreateLobby: React.FC = () => {
   const location = useLocation();
-
+  const { setMessage } = useGameContext();
   useEffect(() => {
     const state = location.state as any;
-    if (state && state.error) alert(state.error);
+    if (state && state.error) setMessage(state.error);
   }, []);
 
   return (
     <main>
-      {/* <button onClick={() => joinRoom('testing!')}>JOIN</button> */}
-      {/* <button onClick={() => test()}>TEST</button> */}
       <CreateGameForm />
       <Wrapper>
         <div>

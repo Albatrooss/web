@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Card as CardType } from '../../types';
 
-const cardMap: Record<CardType, string> = {
+type CardScoreType = CardType | '5s' | '5d' | '5h' | '5c';
+
+const cardMap: Record<CardScoreType, string> = {
   '9s': 'spades/spades-r09',
   '9d': 'diamonds/diamonds-r09',
   '9h': 'hearts/hearts-r09',
@@ -28,11 +30,15 @@ const cardMap: Record<CardType, string> = {
   ah: 'hearts/hearts-A',
   ac: 'clubs/clubs-A',
   back: 'backs/blue',
+  '5s': 'spades/spades-r05',
+  '5d': 'diamonds/diamonds-r05',
+  '5h': 'hearts/hearts-r05',
+  '5c': 'clubs/clubs-r05',
 };
 
 interface CardProps {
-  size?: 'md' | 'lg';
-  value: CardType;
+  size?: 'sm' | 'md' | 'lg';
+  value: CardScoreType;
   noMargin?: boolean;
 }
 
@@ -42,14 +48,14 @@ const Card: React.FC<CardProps> = ({ size = 'md', value, noMargin }) => {
 export default Card;
 
 const Wrapper = styled.div<{
-  size: 'md' | 'lg';
-  card: CardType;
+  size: 'sm' | 'md' | 'lg';
+  card: CardScoreType;
   noMargin?: boolean;
 }>`
   margin: ${({ noMargin }) => (noMargin ? 0 : '5px 5px 50px 5px')};
   cursor: pointer;
-  width: ${({size}) => size === 'md' ? 4 : 6}rem;
-  height: ${({size}) => size === 'md' ? 5.5 : 8.25}rem;
+  width: ${({size}) => size === 'md' ? 4 : size === 'sm' ? 3 : 6}rem;
+  height: ${({size}) => size === 'md' ? 5.5 : size === 'sm' ? 4.125 : 8.25}rem;
 
   background-color: #fff;
   border-radius: 0.2rem;

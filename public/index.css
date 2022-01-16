@@ -16,3 +16,14 @@ main {
   min-height: 100vh;
   display: flex;
 }
+
+.table {
+  background-color: green;
+  background-image: url(/felt_texture.jpeg);
+  background-blend-mode: luminosity;
+  /* background-repeat: no-repeat; */
+  background-size: contain;
+  opacity: 0.35;
+  width: 100%;
+  height: 100%;
+}

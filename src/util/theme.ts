@@ -5,13 +5,15 @@ declare module 'styled-components' {
     borderRadius: string;
     boxShadow: string;
     color: {
-      green: string;
       'white:dutch': string;
       brown: string;
       aero: string;
       'aero:dark': string;
-
+      
+      green: string;
+      'green:dark': string;
       red: string;
+      'red:dark': string;
       blue: string;
       yellow: string;
       orange: string;
@@ -29,13 +31,15 @@ export const theme: Theme = {
   borderRadius: '4px',
   boxShadow: '4px 4px 10px rgba(0, 0, 0, 0.2)',
   color: {
-    green: '#7EAB1E',
     'white:dutch': '#E8DAB2',
     brown: '#573D1C',
     aero: '#7BB2D9',
     'aero:dark': '#6FA2C6',
-
+    
+    green: '#7EAB1E',
+    'green:dark': '#6F951E',
     red: '#F06E6E',
+    'red:dark': '#C65858',
     blue: '#6EBBF0',
     yellow: '#FAF86C',
     orange: '#F0BD6E',

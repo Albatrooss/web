@@ -1,5 +1,5 @@
 import React, { ChangeEvent, createRef, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import {
   useChatContext,
   useGameContext,
@@ -37,7 +37,7 @@ const ChatBox: React.FC = () => {
             <ChatBubbleWrapper me={me} adminMsg={adminMsg}>
               {!(me || adminMsg) && <User>{msg.username}</User>}
               <ChatBubble me={me} adminMsg={adminMsg}>
-                <Text>{msg.text}</Text>
+                <Text adminMsg={adminMsg}>{msg.text}</Text>
               </ChatBubble>
             </ChatBubbleWrapper>
           );
@@ -82,13 +82,13 @@ interface BubbleProps {
 const ChatBubbleWrapper = styled.div<BubbleProps>`
   margin: 1rem ${({ me }) => (me ? 0 : 'auto')} 0
     ${({ me }) => (me ? 'auto' : 0)};
-  width: 80%;
+  width: ${({adminMsg}) => adminMsg ? 100 : 80}%;
 `;
 
 const ChatBubble = styled.div<BubbleProps>`
   background-color: ${({ theme, me, adminMsg }) =>
     adminMsg ? 'none' : theme.color[me ? 'aero' : 'white']};
-  padding: 1rem;
+  padding: ${({ adminMsg }) => adminMsg ? 0 : 1}rem;
   color: ${({ theme, me }) =>
     me ? theme.color['white:0'] : theme.color.black};
   border-radius: 10px;
@@ -101,7 +101,12 @@ const User = styled.span`
   color: ${({ theme }) => theme.color.black};
 `;
 
-const Text = styled.p``;
+const Text = styled.p<{adminMsg: boolean}>`
+  ${({adminMsg, theme }) => adminMsg && css`
+    font-size: 0.8rem;
+    color: ${theme.color.grey};
+  `}
+`;
 
 const StyledForm = styled.form`
   display: flex;
